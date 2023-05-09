@@ -7,7 +7,7 @@ const AddCoffee = () => {
     const form = event.target;
     const name = form.name.value;
     const chef = form.chef.value;
-    const supplier = form.supplier.value;
+    const price = form.price.value;
     const taste = form.taste.value;
     const category = form.category.value;
     const details = form.details.value;
@@ -15,7 +15,7 @@ const AddCoffee = () => {
     const coffeeDetails = {
       name,
       chef,
-      supplier,
+      price,
       taste,
       category,
       details,
@@ -89,18 +89,18 @@ const AddCoffee = () => {
             />
           </div>
         </div>
-        {/* Supplier and Taste */}
+        {/* Price and Taste */}
         <div className="md:flex md:gap-8 md:my-4">
           <div className="form-control mb-4 md:my-0 w-10/12 mx-auto md:w-1/2">
             <label className="label">
               <span className="label-text text-xl font-semibold font-raleway">
-                Supplier
+                Price
               </span>
             </label>
             <input
               type="text"
-              name="supplier"
-              placeholder="Enter coffee supplier"
+              name="price"
+              placeholder="Enter coffee price"
               className="input input-bordered bg-white"
             />
           </div>
