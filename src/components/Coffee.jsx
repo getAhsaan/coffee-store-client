@@ -1,11 +1,11 @@
 import React from "react";
 import { FaEye, FaTrash } from "react-icons/fa";
 import { HiPencil } from "react-icons/hi2";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Coffee = ({ coffee }) => {
   const { _id, name, chef, price, taste, category, details, photo } = coffee;
-
 
   const handleDelete = (_id) => {
     console.log(_id);
@@ -58,9 +58,11 @@ const Coffee = ({ coffee }) => {
           <button className="bg-[#D2B48C] hover:btn-primary p-2 rounded-xl m-1">
             <FaEye className="text-3xl text-white"></FaEye>
           </button>
-          <button className="bg-[#3C393B] hover:btn-secondary p-2 rounded-xl m-1">
-            <HiPencil className="text-3xl text-white"></HiPencil>
-          </button>
+          <Link to={`/updateCoffee/${_id}`}>
+            <button className="bg-[#3C393B] hover:btn-secondary p-2 rounded-xl m-1">
+              <HiPencil className="text-3xl text-white"></HiPencil>
+            </button>
+          </Link>
           <button
             onClick={() => handleDelete(_id)}
             className="bg-[#EA4744] hover:btn-primary p-2 rounded-xl m-1"

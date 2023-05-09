@@ -1,11 +1,189 @@
-import React from 'react';
+import React from "react";
+import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const UpdateCoffee = () => {
-    return (
-        <div>
-            
+  const coffee = useLoaderData();
+  const { _id, name, chef, price, taste, category, details, photo } = coffee;
+  const handleUpdateCoffee = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const chef = form.chef.value;
+    const price = form.price.value;
+    const taste = form.taste.value;
+    const category = form.category.value;
+    const details = form.details.value;
+    const photo = form.photo.value;
+    const updatedCoffee = {
+      name,
+      chef,
+      price,
+      taste,
+      category,
+      details,
+      photo,
+    };
+    console.log(updatedCoffee);
+    // console.log(coffeeDetails);
+    // send data to the server
+    fetch(`http://localhost:3000/coffee/${_id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updatedCoffee),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          Swal.fire({
+            title: "Success!",
+            text: "Coffee added successfully",
+            icon: "success",
+          });
+        }
+      });
+  };
+  return (
+    <form
+      onSubmit={handleUpdateCoffee}
+      className=" bg-[#F4F3F0]"
+    >
+      <div className="md:px-28 md:py-20">
+        <h2
+          className="text-center text-5xl pt-8 md:pt-0 font-rancho text-[#374151] drop-shadow-xl"
+          style={{ textShadow: "2px 2px 5px #374151" }}
+        >
+          Update Coffee: {name}
+        </h2>
+        <p className="text-center py-8 px-12 text-xl font-raleway">
+          It is a long established fact that a reader will be distraceted by the
+          readable content of a page when looking at its layout. The point of
+          using Lorem Ipsum is that it has a more-or-less normal distribution of
+          letters, as opposed to using Content here.
+        </p>
+        {/* Name and Chef */}
+        <div className="md:flex md:gap-8 md:my-4">
+          <div className="form-control mb-4 md:my-0 w-10/12 mx-auto md:w-1/2">
+            <label className="label">
+              <span className="label-text text-xl font-semibold font-raleway">
+                Name
+              </span>
+            </label>
+            <input
+              type="text"
+              name="name"
+              defaultValue={name}
+              placeholder="Enter coffee name"
+              className="input input-bordered bg-white"
+            />
+          </div>
+          <div className="form-control mb-4 md:my-0 w-10/12 mx-auto md:w-1/2">
+            <label className="label">
+              <span className="label-text text-xl font-semibold font-raleway">
+                Chef
+              </span>
+            </label>
+            <input
+              type="text"
+              name="chef"
+              defaultValue={chef}
+              placeholder="Enter coffee chef"
+              className="input input-bordered bg-white"
+            />
+          </div>
         </div>
-    );
+        {/* Price and Taste */}
+        <div className="md:flex md:gap-8 md:my-4">
+          <div className="form-control mb-4 md:my-0 w-10/12 mx-auto md:w-1/2">
+            <label className="label">
+              <span className="label-text text-xl font-semibold font-raleway">
+                Price
+              </span>
+            </label>
+            <input
+              type="text"
+              name="price"
+              defaultValue={price}
+              placeholder="Enter coffee price"
+              className="input input-bordered bg-white"
+            />
+          </div>
+          <div className="form-control mb-4 md:my-0 w-10/12 mx-auto md:w-1/2">
+            <label className="label">
+              <span className="label-text text-xl font-semibold font-raleway">
+                Taste
+              </span>
+            </label>
+            <input
+              type="text"
+              name="taste"
+              defaultValue={taste}
+              placeholder="Enter coffee taste"
+              className="input input-bordered bg-white"
+            />
+          </div>
+        </div>
+        {/* Category and Details */}
+        <div className="md:flex md:gap-8 md:my-4">
+          <div className="form-control mb-4 md:my-0 w-10/12 mx-auto md:w-1/2">
+            <label className="label">
+              <span className="label-text text-xl font-semibold font-raleway">
+                Category
+              </span>
+            </label>
+            <input
+              type="text"
+              name="category"
+              defaultValue={category}
+              placeholder="Enter coffee category"
+              className="input input-bordered bg-white"
+            />
+          </div>
+          <div className="form-control mb-4 md:my-0 w-10/12 mx-auto md:w-1/2">
+            <label className="label">
+              <span className="label-text text-xl font-semibold font-raleway">
+                Details
+              </span>
+            </label>
+            <input
+              type="text"
+              name="details"
+              defaultValue={details}
+              placeholder="Enter coffee details"
+              className="input input-bordered bg-white"
+            />
+          </div>
+        </div>
+        {/* Photo */}
+        <div className="flex md:gap-8 md:my-4">
+          <div className="form-control mb-4 md:my-0 w-10/12 md:w-full mx-auto">
+            <label className="label">
+              <span className="label-text text-xl font-semibold font-raleway">
+                Photo
+              </span>
+            </label>
+            <input
+              type="text"
+              name="photo"
+              defaultValue={photo}
+              placeholder="Enter photo URL"
+              className="input input-bordered bg-white"
+            />
+          </div>
+        </div>
+        <div className="form-control mb-4 md:my-0 mt-6">
+          <input
+            type="submit"
+            value="Update Coffee"
+            className="btn btn-outline w-10/12 md:w-full mx-auto my-8 capitalize bg-[#D2B48C] font-rancho text-2xl text-[#331A15]"
+          />
+        </div>
+      </div>
+    </form>
+  );
 };
 
 export default UpdateCoffee;
