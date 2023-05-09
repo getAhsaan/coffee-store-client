@@ -4,7 +4,7 @@ import { HiPencil } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const Coffee = ({ coffee }) => {
+const Coffee = ({ coffee, coffees, setCoffees }) => {
   const { _id, name, chef, price, taste, category, details, photo } = coffee;
 
   const handleDelete = (_id) => {
@@ -28,6 +28,8 @@ const Coffee = ({ coffee }) => {
             if (data.deletedCount > 0) {
               Swal.fire("Deleted!", "Your coffee has been deleted.", "success");
             }
+            const remaining = coffees.filter((cof) => cof._id !== _id);
+            setCoffees(remaining);
           });
         // console.log("delete confirmed");
       }
